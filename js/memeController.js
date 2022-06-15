@@ -8,6 +8,7 @@ function onInit() {
 	gCtx = gCanvas.getContext('2d')
 
 	renderMeme()
+	renderAccordingToLine()
 }
 
 function renderMeme() {
@@ -27,6 +28,9 @@ function renderMeme() {
 
 			renderTextLine(line)
 		})
+
+		// change to current line font to calculate line sizes correctly
+		gCtx.font = `${getLine().size}px impact`
 
 		renderLineSelection()
 	}
@@ -70,6 +74,22 @@ function renderLineSelection() {
 	)
 }
 
+// render all info after line switch
+function renderAccordingToLine() {
+	const line = getLine()
+	const elInput = document.querySelector('[name="text-input"]')
+	elInput.value = line.txt
+
+	// change the color pickers
+	document.querySelector('.color-btn').style.color = line.textColor
+	document.querySelector('.stroke-btn').style.color = line.strokeColor
+
+	// remove current active, change to the pressed button
+	const elActive = document.querySelector('.active')
+	if (elActive) elActive.classList.remove('active')
+	document.querySelector(`.align-${line.align}-btn`).classList.add('active')
+}
+
 function onLineInput(txt) {
 	setLineTxt(txt)
 	renderMeme()
@@ -77,18 +97,7 @@ function onLineInput(txt) {
 
 function onSwitchLine() {
 	switchLine()
-
-	const line = getLine()
-	const elInput = document.querySelector('[name="text-input"]')
-	elInput.value = line.txt
-
-	// change shown line number
-	document.querySelector('.chosen-line').innerText = getLineNumber()
-
-	// change the color pickers
-	document.querySelector('.color-btn').style.color = line.textColor
-	document.querySelector('.stroke-btn').style.color = line.strokeColor
-
+	renderAccordingToLine()
 	renderMeme()
 }
 
@@ -104,4 +113,23 @@ function onChangeStrokeColor(color) {
 	renderMeme()
 
 	document.querySelector('.stroke-btn').style.color = color
+}
+
+function onAlignChange(alignment, elBtn) {
+	setLineAlign(alignment)
+	renderMeme()
+
+	// remove current active, change to the pressed button
+	document.querySelector('.active').classList.remove('active')
+	elBtn.classList.add('active')
+}
+
+function onChangeTextSize(diff) {
+	changeTextSize(diff)
+	renderMeme()
+}
+
+function onMoveLine(diff) {
+	moveLine(diff)
+	renderMeme()
 }

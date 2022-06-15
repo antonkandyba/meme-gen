@@ -54,3 +54,32 @@ function setTextColor(color) {
 function setStrokeColor(color) {
 	gMeme.lines[gMeme.selectedLineIdx].strokeColor = color
 }
+
+function setLineAlign(alignment) {
+	gMeme.lines[gMeme.selectedLineIdx].align = alignment
+}
+
+function increaseTextSize() {
+	gMeme.lines[gMeme.selectedLineIdx].size += 4
+}
+
+function decreaseTextSize() {
+	// limit minimum size to 16
+	if (gMeme.lines[gMeme.selectedLineIdx].size <= 16) return
+	gMeme.lines[gMeme.selectedLineIdx].size -= 4
+}
+
+function changeTextSize(diff) {
+	// limit minimum size to 16
+	if (diff < 0 && gMeme.lines[gMeme.selectedLineIdx].size <= 16) return
+	gMeme.lines[gMeme.selectedLineIdx].size += diff
+}
+
+function moveLine(diff) {
+	// don't let the text to go out of the canvas completely
+	const posY = gMeme.lines[gMeme.selectedLineIdx].pos.y
+	if (diff < 0 && posY < 50) return
+	if (diff > 0 && posY > gCanvas.height) return
+
+	gMeme.lines[gMeme.selectedLineIdx].pos.y += diff
+}

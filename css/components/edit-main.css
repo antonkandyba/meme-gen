@@ -25,19 +25,6 @@
 	color: var(--clr4);
 }
 
-.meme-operations .lines-count {
-	font-size: 1.125em;
-	font-family: roboto-light;
-}
-
-.meme-operations .lines-count .chosen-line {
-	color: var(--clr4);
-}
-
-.meme-operations .lines-count .total-lines {
-	color: var(#f8f8f8);
-}
-
 .meme-operations .lines-control-btns > *:not(:first-child) {
 	margin-inline-start: 15px;
 }
@@ -77,6 +64,10 @@
 	color: var(--clr4);
 }
 
+.line-operations .line-btns button.active {
+	color: var(--clr1);
+}
+
 /* all buttons except the color pickers */
 .line-operations .line-btns button:hover:not(:last-child, :nth-last-child(2)) {
 	color: var(--clr1);
@@ -98,14 +89,6 @@
 		0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black,
 		0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black,
 		0 0 2px black, 0 0 2px black, 0 0 2px black;
-}
-
-.line-operations .line-btns .color-btn {
-	color: white;
-}
-
-.line-operations .line-btns .stroke-btn {
-	color: black;
 }
 
 .line-btns input {

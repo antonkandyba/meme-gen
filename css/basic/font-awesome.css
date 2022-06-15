@@ -18,8 +18,8 @@
 	content: '\f063';
 }
 
-.decrease-size::after {
-	content: '\f068';
+.decrease-size::before {
+	content: 'A\f068';
 }
 
 .align-left-btn::before {
