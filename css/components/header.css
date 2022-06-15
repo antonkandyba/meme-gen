@@ -1,0 +1,22 @@
+.main-header {
+	height: 3.125em;
+	border-bottom: 1px solid #dbdbdb;
+	padding: 0 1.25em;
+}
+
+.main-header .main-logo {
+	height: 2em;
+	width: 9.5em;
+}
+
+.main-header .nav-list li:not(:first-child) {
+	margin-inline-start: 3.125em;
+}
+
+.main-header .nav-list a {
+	color: var(--clr3);
+}
+
+.main-header .nav-list a:hover {
+	color: var(--clr1);
+}

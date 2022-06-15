@@ -1,0 +1,26 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-family: roboto-medium, sans-serif;
+	color: var(--clr3);
+}
+
+body {
+	margin: 0;
+	font-size: 1rem;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+	color: var(--clr1);
+}
+
+img {
+	width: 100%;
+}

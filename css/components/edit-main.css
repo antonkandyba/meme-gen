@@ -1,0 +1,7 @@
+.edit-main {
+	grid-template-columns: 2fr 1fr;
+}
+
+.edit-main .meme-operations {
+	background-color: var(--clr2);
+}
