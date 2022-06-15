@@ -22,7 +22,7 @@ function renderMeme() {
 			// set dynamic text properties
 			gCtx.font = `${line.size}px impact`
 			gCtx.textAlign = line.align
-			gCtx.fillStyle = line.fillColor
+			gCtx.fillStyle = line.textColor
 			gCtx.strokeStyle = gCtx.shadowColor = line.strokeColor
 
 			renderTextLine(line)
@@ -85,5 +85,23 @@ function onSwitchLine() {
 	// change shown line number
 	document.querySelector('.chosen-line').innerText = getLineNumber()
 
+	// change the color pickers
+	document.querySelector('.color-btn').style.color = line.textColor
+	document.querySelector('.stroke-btn').style.color = line.strokeColor
+
 	renderMeme()
+}
+
+function onChangeTextColor(color) {
+	setTextColor(color)
+	renderMeme()
+
+	document.querySelector('.color-btn').style.color = color
+}
+
+function onChangeStrokeColor(color) {
+	setStrokeColor(color)
+	renderMeme()
+
+	document.querySelector('.stroke-btn').style.color = color
 }

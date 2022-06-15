@@ -6,18 +6,18 @@ var gMeme = {
 	lines: [
 		{
 			pos: { x: 250, y: 50 },
-			txt: 'Hello World',
+			txt: 'TOP TEXT',
 			size: 48,
 			align: 'center',
-			fillColor: 'white',
+			textColor: 'white',
 			strokeColor: 'black',
 		},
 		{
 			pos: { x: 250, y: 480 },
-			txt: 'Goodbye World',
+			txt: 'BOTTOM TEXT',
 			size: 48,
 			align: 'center',
-			fillColor: 'white',
+			textColor: 'white',
 			strokeColor: 'black',
 		},
 	],
@@ -45,4 +45,12 @@ function switchLine() {
 	gMeme.selectedLineIdx++
 	// go back to first line if we have no more lines
 	if (gMeme.selectedLineIdx === gMeme.lines.length) gMeme.selectedLineIdx = 0
+}
+
+function setTextColor(color) {
+	gMeme.lines[gMeme.selectedLineIdx].textColor = color
+}
+
+function setStrokeColor(color) {
+	gMeme.lines[gMeme.selectedLineIdx].strokeColor = color
 }

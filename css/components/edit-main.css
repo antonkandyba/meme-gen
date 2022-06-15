@@ -1,6 +1,10 @@
 .edit-main {
 	grid-template-columns: 2fr minmax(400px, 1fr);
 	height: 100%;
+	max-width: 1440px;
+	margin: auto;
+	border-left: 1px solid var(--clr6);
+	border-right: 1px solid var(--clr6);
 }
 
 .edit-main canvas {
@@ -10,6 +14,10 @@
 .edit-main .meme-operations {
 	background-color: var(--clr2);
 	padding: 30px;
+}
+
+.meme-operations .lines-control-main {
+	margin-bottom: 20px;
 }
 
 .meme-operations .lines-control-header {
@@ -48,4 +56,75 @@
 
 .meme-operations .lines-control-btns button:active {
 	color: var(--clr3);
+}
+
+.meme-operations .line-operations {
+	background-color: #fff;
+	border: 1px solid var(--clr5);
+	border-radius: 10px;
+}
+
+.meme-operations .line-operations .line-btns {
+	border-bottom: 1px solid var(--clr6);
+	padding: 10px;
+}
+
+.line-operations .line-btns button {
+	border: none;
+	background-color: transparent;
+	font-size: 1rem;
+	font-family: fa;
+	color: var(--clr4);
+}
+
+/* all buttons except the color pickers */
+.line-operations .line-btns button:hover:not(:last-child, :nth-last-child(2)) {
+	color: var(--clr1);
+	cursor: pointer;
+}
+
+.line-operations .line-btns button:active:not(:last-child, :nth-last-child(2)) {
+	color: var(--clr3);
+}
+
+.line-operations .line-btns > *:not(:first-child) {
+	margin-inline-start: 15px;
+}
+
+.line-operations .line-btns .color-btn,
+.line-operations .line-btns .stroke-btn {
+	position: relative;
+	text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black,
+		0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black,
+		0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black,
+		0 0 2px black, 0 0 2px black, 0 0 2px black;
+}
+
+.line-operations .line-btns .color-btn {
+	color: white;
+}
+
+.line-operations .line-btns .stroke-btn {
+	color: black;
+}
+
+.line-btns input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.meme-operations .line-operations .text-input {
+	font-size: 1em;
+	font-family: roboto-regular;
+	border: none;
+	outline: none;
+	width: 100%;
+	line-height: 4.125;
+	border-radius: 10px;
+	padding-inline-start: 0.6em;
 }

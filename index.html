@@ -35,15 +35,44 @@
 							<span class="total-lines">/ 2</span>
 						</span>
 
-						<button class="switch-lines-btn" onclick="onSwitchLine()">⇅</button>
-						<button class="add-line-btn font-awesome" onclick="onAddLine()"></button>
-						<button class="remove-line-btn font-awesome" onclick="onRemoveLine()"></button>
+						<button class="switch-lines-btn" onclick="onSwitchLine()" title="Switch lines">
+							⇅
+						</button>
+						<button
+							class="add-line-btn font-awesome"
+							onclick="onAddLine()"
+							title="Add line"
+						></button>
+						<button
+							class="remove-line-btn font-awesome"
+							onclick="onRemoveLine()"
+							title="Delete line"
+						></button>
 					</div>
 				</div>
 				<div class="line-operations">
+					<div class="line-btns flex justify-center align-center">
+						<button class="move-up-btn"></button>
+						<button class="move-down-btn"></button>
+						<span>|</span>
+						<button>A+</button>
+						<button class="decrease-size">A</button>
+						<span>|</span>
+						<button class="align-left-btn"></button>
+						<button class="align-center-btn"></button>
+						<button class="align-right-btn"></button>
+						<span>|</span>
+						<button class="color-btn">
+							<input type="color" name="text-color" oninput="onChangeTextColor(this.value)" />
+						</button>
+						<button class="stroke-btn">
+							<input type="color" name="text-color" oninput="onChangeStrokeColor(this.value)" />
+						</button>
+					</div>
 					<input
 						type="text"
 						name="text-input"
+						class="text-input"
 						placeholder="Enter text"
 						oninput="onLineInput(this.value)"
 					/>
