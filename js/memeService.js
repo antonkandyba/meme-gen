@@ -26,3 +26,8 @@ var gMeme = {
 function getMeme() {
 	return gMeme
 }
+
+function setLineTxt(txt) {
+	// change the currently selected line
+	gMeme.lines[gMeme.selectedLineIdx].txt = txt
+}

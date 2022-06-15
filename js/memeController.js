@@ -1,7 +1,20 @@
 'use strict'
 
-const gCanvas = document.querySelector('.meme-canvas')
-const gCtx = gCanvas.getContext('2d')
+var gCanvas
+var gCtx
+
+function onInit() {
+	gCanvas = document.querySelector('.meme-canvas')
+	gCtx = gCanvas.getContext('2d')
+
+	// set static text properties
+	gCtx.lineWidth = 6
+	gCtx.shadowOffsetX = 3
+	gCtx.shadowOffsetY = 3
+	gCtx.shadowBlur = 7
+
+	renderMeme()
+}
 
 function renderMeme() {
 	const meme = getMeme()
@@ -12,8 +25,8 @@ function renderMeme() {
 		gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
 
 		meme.lines.forEach((line) => {
-			const txt = line.txt
-			gCtx.font = `${line.size}px roboto-regular`
+			// set dynamic text properties
+			gCtx.font = `${line.size}px impact`
 			gCtx.textAlign = line.align
 			gCtx.fillStyle = line.fillColor
 			gCtx.strokeStyle = gCtx.shadowColor = line.strokeColor
@@ -24,11 +37,11 @@ function renderMeme() {
 }
 
 function renderTextLine(txt, x, y) {
-	gCtx.lineWidth = 7
-	gCtx.shadowOffsetX = 3
-	gCtx.shadowOffsetY = 3
-	gCtx.shadowBlur = 7
-
 	gCtx.strokeText(txt, x, y)
 	gCtx.fillText(txt, x, y)
+}
+
+function onLineInput(txt) {
+	setLineTxt(txt)
+	renderMeme()
 }

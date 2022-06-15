@@ -9,7 +9,7 @@
 
 		<link rel="stylesheet" href="css/style.css" />
 	</head>
-	<body onload="renderMeme()">
+	<body onload="onInit()">
 		<header class="main-header flex align-center space-between">
 			<img src="img/logo.png" alt="Memegen logo" class="main-logo" />
 			<ul class="nav-list clean-list flex">
@@ -26,7 +26,17 @@
 				<canvas class="meme-canvas" width="500" height="500"></canvas>
 			</div>
 
-			<div class="meme-operations"></div>
+			<div class="meme-operations">
+				<div class="lines-control"></div>
+				<div class="line-operations">
+					<input
+						type="text"
+						name="text-input"
+						placeholder="Enter text"
+						oninput="onLineInput(this.value)"
+					/>
+				</div>
+			</div>
 		</section>
 
 		<!-- <section class="gallery-grid"></section> -->
