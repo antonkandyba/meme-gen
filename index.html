@@ -27,7 +27,19 @@
 			</div>
 
 			<div class="meme-operations">
-				<div class="lines-control"></div>
+				<div class="lines-control-main flex space-between align-center">
+					<div class="lines-control-header">Edit Text Lines</div>
+					<div class="lines-control-btns">
+						<span class="lines-count">
+							<span class="chosen-line">1</span>
+							<span class="total-lines">/ 2</span>
+						</span>
+
+						<button class="switch-lines-btn" onclick="onSwitchLine()">⇅</button>
+						<button class="add-line-btn" onclick="onAddLine()">+</button>
+						<button class="remove-line-btn" onclick="onRemoveLine()">🗑</button>
+					</div>
+				</div>
 				<div class="line-operations">
 					<input
 						type="text"

@@ -1,5 +1,5 @@
 .edit-main {
-	grid-template-columns: 2fr 1fr;
+	grid-template-columns: 2fr minmax(400px, 1fr);
 	height: 100%;
 }
 
@@ -9,4 +9,42 @@
 
 .edit-main .meme-operations {
 	background-color: var(--clr2);
+	padding: 30px;
+}
+
+.meme-operations .lines-control-header {
+	font-size: 1.5em;
+	color: var(--clr4);
+}
+
+.meme-operations .lines-count {
+	font-size: 1.125em;
+	font-family: roboto-light;
+}
+
+.meme-operations .lines-count .chosen-line {
+	color: var(--clr4);
+}
+
+.meme-operations .lines-count .total-lines {
+	color: var(#f8f8f8);
+}
+
+.meme-operations .lines-control-btns > *:not(:first-child) {
+	margin-inline-start: 15px;
+}
+
+.meme-operations .lines-control-btns button {
+	background-color: transparent;
+	border: none;
+	color: var(--clr4);
+	font-size: 1.3em;
+}
+
+.meme-operations .lines-control-btns button:hover {
+	color: var(--clr1);
+}
+
+.meme-operations .lines-control-btns button:active {
+	color: var(--clr3);
 }
