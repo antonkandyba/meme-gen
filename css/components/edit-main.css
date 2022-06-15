@@ -1,5 +1,10 @@
 .edit-main {
 	grid-template-columns: 2fr 1fr;
+	height: 100%;
+}
+
+.edit-main canvas {
+	border-radius: 10px;
 }
 
 .edit-main .meme-operations {
