@@ -5,6 +5,7 @@
 /* BASE */
 @import 'basic/base.css';
 @import 'basic/helpers.css';
+@import 'basic/font-awesome.css';
 
 /* COMPONENTS */
 @import 'components/header.css';

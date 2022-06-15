@@ -1,0 +1,11 @@
+.font-awesome {
+	font-family: fa;
+}
+
+.remove-line-btn::before {
+	content: '\f2ed';
+}
+
+.add-line-btn::before {
+	content: '\2b';
+}

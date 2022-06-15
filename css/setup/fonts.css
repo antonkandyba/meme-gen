@@ -1,3 +1,4 @@
+/* Roboto */
 @font-face {
 	font-family: roboto-regular;
 	src: url(../../fonts/Roboto-Regular.ttf);
@@ -13,7 +14,16 @@
 
 	src: url(../../fonts/Roboto-Medium.ttf);
 }
+
+/* Impact */
 @font-face {
 	font-family: impact;
 	src: url(../../fonts/impact.ttf);
+}
+
+/* Font Awesoe */
+@font-face {
+	font-family: fa;
+	src: url(../../fonts/fa-regular-400.ttf);
+	src: url(../../fonts/fa-solid-900.ttf);
 }

@@ -43,6 +43,7 @@
 
 .meme-operations .lines-control-btns button:hover {
 	color: var(--clr1);
+	cursor: pointer;
 }
 
 .meme-operations .lines-control-btns button:active {

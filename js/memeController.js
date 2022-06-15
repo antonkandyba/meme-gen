@@ -25,22 +25,23 @@ function renderMeme() {
 			gCtx.fillStyle = line.fillColor
 			gCtx.strokeStyle = gCtx.shadowColor = line.strokeColor
 
-			renderTextLine(line.txt, line.pos.x, line.pos.y)
+			renderTextLine(line)
 		})
 
 		renderLineSelection()
 	}
 }
 
-function renderTextLine(txt, x, y) {
+// renders the line with fill, stroke and shadow
+function renderTextLine({ txt, pos }) {
 	// set stroke for textx
 	gCtx.lineWidth = 6
 	gCtx.shadowOffsetX = 3
 	gCtx.shadowOffsetY = 3
 	gCtx.shadowBlur = 7
 
-	gCtx.strokeText(txt, x, y)
-	gCtx.fillText(txt, x, y)
+	gCtx.strokeText(txt, pos.x, pos.y)
+	gCtx.fillText(txt, pos.x, pos.y)
 }
 
 function renderLineSelection() {
@@ -54,9 +55,15 @@ function renderLineSelection() {
 	const line = getLine()
 	const txtMeasure = gCtx.measureText(line.txt)
 
+	// choose x-axis start based on text alignment
+	// add 10px on each side for padding
+	let xStart = line.pos.x - 10
+	if (line.align === 'center') xStart -= txtMeasure.width / 2
+	if (line.align === 'right') xStart -= txtMeasure.width
+
 	// calculate selection box size acording to the text
 	gCtx.strokeRect(
-		line.pos.x - txtMeasure.width / 2 - 10,
+		xStart,
 		line.pos.y - txtMeasure.fontBoundingBoxAscent,
 		txtMeasure.width + 20,
 		txtMeasure.fontBoundingBoxDescent + txtMeasure.fontBoundingBoxAscent
