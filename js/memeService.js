@@ -40,6 +40,10 @@ function setLineTxt(txt) {
 	gMeme.lines[gMeme.selectedLineIdx].txt = txt
 }
 
+function setMemeImg(imgId) {
+	gMeme.selectedImgId = imgId
+}
+
 // switches current line to the next one
 function switchLine() {
 	gMeme.selectedLineIdx++

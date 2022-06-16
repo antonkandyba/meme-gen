@@ -3,7 +3,7 @@
 var gCanvas
 var gCtx
 
-function onInit() {
+function initEditor() {
 	gCanvas = document.querySelector('.meme-canvas')
 	gCtx = gCanvas.getContext('2d')
 

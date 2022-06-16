@@ -1,10 +1,24 @@
 .edit-main {
+	position: fixed;
+	right: 0;
+
 	grid-template-columns: 2fr minmax(400px, 1fr);
-	height: 100%;
+	height: calc(100% - 50px);
 	max-width: 1440px;
 	margin: auto;
 	border-left: 1px solid var(--clr6);
 	border-right: 1px solid var(--clr6);
+
+	/* opacity: 0; */
+
+	transform: translateX(100%);
+	transition: transform 0.6s;
+}
+
+body.editor-open .edit-main {
+	/* opacity: 1; */
+	position: relative;
+	transform: translateX(0);
 }
 
 .edit-main canvas {
@@ -13,7 +27,7 @@
 
 .edit-main .meme-operations {
 	background-color: var(--clr2);
-	padding: 30px;
+	padding: 30px 30px 0 30px;
 }
 
 .meme-operations .lines-control-main {
