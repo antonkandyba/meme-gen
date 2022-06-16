@@ -2,13 +2,23 @@
 
 var gCanvas
 var gCtx
+var gCurrWidth = 500
 
 function initEditor() {
 	gCanvas = document.querySelector('.meme-canvas')
 	gCtx = gCanvas.getContext('2d')
 
-	renderMeme()
-	renderAccordingToLine()
+	// render meme only after loading the font for the first time
+	const f = new FontFace('impact', 'url(fonts/impact.ttf)')
+	f.load().then((font) => {
+		document.fonts.add(font)
+
+		renderMeme()
+		renderAccordingToLine()
+	})
+
+	onResizeCanvas()
+	window.addEventListener('resize', onResizeCanvas)
 }
 
 function renderMeme() {
@@ -132,4 +142,27 @@ function onChangeTextSize(diff) {
 function onMoveLine(diff) {
 	moveLine(diff)
 	renderMeme()
+}
+
+function onResizeCanvas() {
+	const width = document.body.offsetWidth
+	if (width < 520) {
+		// leave 10px margin on both sides
+		const newWidth = width - 20
+		gCanvas.width = newWidth
+		gCanvas.height = newWidth
+
+		changeLinesOnResize(newWidth / gCurrWidth)
+		renderMeme()
+
+		gCurrWidth = newWidth
+	}
+	if (gCanvas.width < 500 && width >= 520) {
+		gCanvas.width = gCanvas.height = 500
+
+		changeLinesOnResize(500 / gCurrWidth)
+		renderMeme()
+
+		gCurrWidth = 500
+	}
 }

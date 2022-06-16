@@ -18,3 +18,7 @@ function renderMemeEditor() {
 	initEditor()
 	document.body.classList.add('editor-open')
 }
+
+function onGoToGallery() {
+	document.body.classList.remove('editor-open')
+}

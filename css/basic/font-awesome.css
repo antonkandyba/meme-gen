@@ -41,3 +41,7 @@
 .stroke-btn::before {
 	content: '\f1fc';
 }
+
+.back-triangle::before {
+	content: '\f104';
+}

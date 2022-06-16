@@ -2,32 +2,36 @@
 	position: fixed;
 	right: 0;
 
-	grid-template-columns: 2fr minmax(400px, 1fr);
-	height: calc(100% - 50px);
-	max-width: 1440px;
 	margin: auto;
 	border-left: 1px solid var(--clr6);
 	border-right: 1px solid var(--clr6);
 
-	/* opacity: 0; */
-
-	transform: translateX(100%);
+	transform: translateX(120%);
 	transition: transform 0.6s;
 }
 
 body.editor-open .edit-main {
-	/* opacity: 1; */
 	position: relative;
 	transform: translateX(0);
 }
 
-.edit-main canvas {
-	border-radius: 10px;
+.edit-main .back-btn {
+	position: absolute;
+	top: 25px;
+	left: 25px;
+	border: none;
+	background-color: transparent;
+	color: var(--clr3);
+	font-size: 1em;
 }
 
-.edit-main .meme-operations {
-	background-color: var(--clr2);
-	padding: 30px 30px 0 30px;
+.edit-main .back-btn:hover {
+	color: var(--clr4);
+	cursor: pointer;
+}
+
+.edit-main canvas {
+	border-radius: 10px;
 }
 
 .meme-operations .lines-control-main {

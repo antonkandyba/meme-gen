@@ -87,3 +87,11 @@ function moveLine(diff) {
 
 	gMeme.lines[gMeme.selectedLineIdx].pos.y += diff
 }
+
+function changeLinesOnResize(ratio) {
+	gMeme.lines.forEach((line) => {
+		line.size *= ratio
+		line.pos.x *= ratio
+		line.pos.y *= ratio
+	})
+}

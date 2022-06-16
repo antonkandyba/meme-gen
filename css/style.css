@@ -11,3 +11,6 @@
 @import 'components/header.css';
 @import 'components/gallery.css';
 @import 'components/edit-main.css';
+
+/* MEDIA QUERIES */
+@import 'mq/mq.css';
