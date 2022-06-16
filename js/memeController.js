@@ -40,7 +40,9 @@ function renderMeme() {
 		})
 
 		// change to current line font to calculate line sizes correctly
-		gCtx.font = `${getLine().size}px impact`
+		const line = getLine()
+		if (!line) return
+		gCtx.font = `${line.size}px impact`
 
 		renderLineSelection()
 	}
@@ -87,6 +89,8 @@ function renderLineSelection() {
 // render all info after line switch
 function renderAccordingToLine() {
 	const line = getLine()
+	if (!line) return
+
 	const elInput = document.querySelector('[name="text-input"]')
 	elInput.value = line.txt
 
@@ -165,4 +169,16 @@ function onResizeCanvas() {
 
 		gCurrWidth = 500
 	}
+}
+
+function onAddLine() {
+	addNewLine()
+	renderAccordingToLine()
+	renderMeme()
+}
+
+function onRemoveLine() {
+	removeLine()
+	renderAccordingToLine()
+	renderMeme()
 }

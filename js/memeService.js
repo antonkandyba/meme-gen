@@ -95,3 +95,24 @@ function changeLinesOnResize(ratio) {
 		line.pos.y *= ratio
 	})
 }
+
+function addNewLine() {
+	gMeme.lines.push({
+		pos: { x: gCanvas.width / 2, y: gCanvas.height / 2 },
+		txt: 'New Text',
+		size: 48,
+		align: 'center',
+		textColor: 'white',
+		strokeColor: 'black',
+	})
+
+	gMeme.selectedLineIdx = gMeme.lines.length - 1
+}
+
+function removeLine() {
+	if (gMeme.lines.length === 0) return
+
+	gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+
+	if (gMeme.selectedLineIdx === gMeme.lines.length) gMeme.selectedLineIdx = 0
+}
