@@ -5,12 +5,14 @@ var gMeme = {
 	selectedLineIdx: 0,
 	lines: [],
 	isDrag: false,
+	heightToWidthRatio: 1,
 }
 
 function createDefaultLines() {
+	console.log(gMeme.ratio)
 	gMeme.lines = [
 		{
-			pos: { x: gCanvas.width / 2, y: 50 },
+			pos: { x: 250, y: 50 },
 			txt: 'TOP TEXT',
 			size: 48,
 			align: 'center',
@@ -18,7 +20,7 @@ function createDefaultLines() {
 			strokeColor: 'black',
 		},
 		{
-			pos: { x: gCanvas.width / 2, y: gCanvas.height - 12 },
+			pos: { x: 250, y: 500 * gMeme.heightToWidthRatio - 12 },
 			txt: 'BOTTOM TEXT',
 			size: 48,
 			align: 'center',
@@ -36,8 +38,8 @@ function getLine() {
 	return gMeme.lines[gMeme.selectedLineIdx]
 }
 
-function getLineNumber() {
-	return gMeme.selectedLineIdx + 1
+function getRatio() {
+	return gMeme.heightToWidthRatio
 }
 
 function getBindBox() {
@@ -55,6 +57,18 @@ function setLineTxt(txt) {
 
 function setMemeImg(imgId) {
 	gMeme.selectedImgId = imgId
+
+	const img = new Image()
+	img.src = `img/${imgId}.jpg`
+
+	img.onload = () => {
+		const ratio = img.height / img.width
+		setHeightRatio(ratio)
+	}
+}
+
+function setHeightRatio(ratio) {
+	gMeme.heightToWidthRatio = ratio
 }
 
 function setBindBoxes() {
@@ -150,7 +164,8 @@ function isMemeDrag() {
 }
 
 function isInLine(pos, isClicked) {
-	for (let i = 0; i < gMeme.lines.length; i++) {
+	// reverse order so we chose the line on top
+	for (let i = gMeme.lines.length - 1; i >= 0; i--) {
 		const box = gMeme.lines[i].bindBox
 		if (
 			pos.x >= box.x &&

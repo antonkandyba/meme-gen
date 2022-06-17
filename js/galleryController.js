@@ -2,7 +2,7 @@
 
 function onInit() {
 	let imgsHTML = ''
-	for (let i = 1; i <= 18; i++) {
+	for (let i = 1; i <= 24; i++) {
 		imgsHTML += `<img src="img/${i}.jpg" onclick="onClickGalleryImg(${i})"/>`
 	}
 

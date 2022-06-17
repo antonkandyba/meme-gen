@@ -9,13 +9,12 @@ function initEditor() {
 	gCanvas = document.querySelector('.meme-canvas')
 	gCtx = gCanvas.getContext('2d')
 
-	createDefaultLines()
-
 	// render meme only after loading the font for the first time
 	const f = new FontFace('impact', 'url(fonts/impact.ttf)')
 	f.load().then((font) => {
 		document.fonts.add(font)
 
+		createDefaultLines()
 		renderMeme()
 		renderAccordingToLine()
 	})
@@ -33,6 +32,9 @@ function renderMeme() {
 	img.src = `img/${meme.selectedImgId}.jpg`
 	// render image when it's ready
 	img.onload = () => {
+		// set height according ratio
+		gCanvas.height = getRatio() * gCurrWidth
+
 		gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
 
 		meme.lines.forEach((line) => {
@@ -177,7 +179,7 @@ function onResizeCanvas() {
 		// leave 10px margin on both sides
 		const newWidth = width - 20
 		gCanvas.width = newWidth
-		gCanvas.height = newWidth
+		gCanvas.height = getRatio() * newWidth
 
 		changeLinesOnResize(newWidth / gCurrWidth)
 		renderMeme()
@@ -185,7 +187,8 @@ function onResizeCanvas() {
 		gCurrWidth = newWidth
 	}
 	if (gCanvas.width < 500 && width >= 520) {
-		gCanvas.width = gCanvas.height = 500
+		gCanvas.width = 500
+		gCanvas.height = getRatio() * 500
 
 		changeLinesOnResize(500 / gCurrWidth)
 		renderMeme()
@@ -209,9 +212,7 @@ function addListeners() {
 
 function onDown(ev) {
 	//Get the ev pos from mouse or touch
-	console.log(ev.changedTouches)
 	const pos = getEvPos(ev)
-	console.log(pos)
 	if (!isInLine(pos, true)) return
 	// in case we change the line with the click
 	renderAccordingToLine()

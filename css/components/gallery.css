@@ -1,7 +1,6 @@
 .gallery-main {
 	display: grid;
-	/* grid-template-columns: 1fr minmax(200px, 1440px) 1fr;
-	grid-template-areas: '. gallery .'; */
+	grid-auto-rows: 1fr;
 
 	position: relative;
 	transform: translateX(0);
@@ -12,11 +11,12 @@
 .gallery-grid {
 	grid-area: gallery;
 	background-color: #fff;
-	height: 100%;
 }
 
 .gallery-grid img {
 	border-radius: 10px;
+	height: 100%;
+	object-fit: cover;
 }
 
 .gallery-grid img:hover {
