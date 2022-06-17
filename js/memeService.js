@@ -1,11 +1,16 @@
 'use strict'
 
 var gMeme = {
-	selectedImgId: 5,
+	selectedImgId: 1,
 	selectedLineIdx: 0,
-	lines: [
+	lines: [],
+	isDrag: false,
+}
+
+function createDefaultLines() {
+	gMeme.lines = [
 		{
-			pos: { x: 250, y: 50 },
+			pos: { x: gCanvas.width / 2, y: 50 },
 			txt: 'TOP TEXT',
 			size: 48,
 			align: 'center',
@@ -13,14 +18,14 @@ var gMeme = {
 			strokeColor: 'black',
 		},
 		{
-			pos: { x: 250, y: 480 },
+			pos: { x: gCanvas.width / 2, y: gCanvas.height - 12 },
 			txt: 'BOTTOM TEXT',
 			size: 48,
 			align: 'center',
 			textColor: 'white',
 			strokeColor: 'black',
 		},
-	],
+	]
 }
 
 function getMeme() {
@@ -35,6 +40,14 @@ function getLineNumber() {
 	return gMeme.selectedLineIdx + 1
 }
 
+function getBindBox() {
+	return getLine().bindBox
+}
+
+function setIsMemeDrag(isDrag) {
+	gMeme.isDrag = isDrag
+}
+
 function setLineTxt(txt) {
 	// change the currently selected line
 	gMeme.lines[gMeme.selectedLineIdx].txt = txt
@@ -42,6 +55,28 @@ function setLineTxt(txt) {
 
 function setMemeImg(imgId) {
 	gMeme.selectedImgId = imgId
+}
+
+function setBindBoxes() {
+	gMeme.lines.forEach((line) => {
+		setBindBox(line)
+	})
+}
+
+function setBindBox(line = gMeme.lines[gMeme.selectedLineIdx]) {
+	const txtMeasure = gCtx.measureText(line.txt)
+	// choose x-axis start based on text alignment
+	// add 10px on each side for padding
+	let xStart = line.pos.x - 10
+	if (line.align === 'center') xStart -= txtMeasure.width / 2
+	if (line.align === 'right') xStart -= txtMeasure.width
+
+	line.bindBox = {
+		x: xStart,
+		y: line.pos.y - txtMeasure.fontBoundingBoxAscent,
+		width: txtMeasure.width + 20,
+		height: txtMeasure.fontBoundingBoxDescent + txtMeasure.fontBoundingBoxAscent,
+	}
 }
 
 // switches current line to the next one
@@ -63,29 +98,22 @@ function setLineAlign(alignment) {
 	gMeme.lines[gMeme.selectedLineIdx].align = alignment
 }
 
-function increaseTextSize() {
-	gMeme.lines[gMeme.selectedLineIdx].size += 4
-}
-
-function decreaseTextSize() {
-	// limit minimum size to 16
-	if (gMeme.lines[gMeme.selectedLineIdx].size <= 16) return
-	gMeme.lines[gMeme.selectedLineIdx].size -= 4
-}
-
 function changeTextSize(diff) {
 	// limit minimum size to 16
 	if (diff < 0 && gMeme.lines[gMeme.selectedLineIdx].size <= 16) return
 	gMeme.lines[gMeme.selectedLineIdx].size += diff
 }
 
-function moveLine(diff) {
+function moveLine(diffX = 0, diffY = 0) {
+	const line = getLine()
 	// don't let the text to go out of the canvas completely
-	const posY = gMeme.lines[gMeme.selectedLineIdx].pos.y
-	if (diff < 0 && posY < 50) return
-	if (diff > 0 && posY > gCanvas.height) return
+	const posX = line.pos.x + diffX
+	const posY = line.pos.y + diffY
+	if (posY < 0 || posY > gCanvas.height) return
+	if (posX < 0 || posX > gCanvas.width) return
 
-	gMeme.lines[gMeme.selectedLineIdx].pos.y += diff
+	line.pos.x = posX
+	line.pos.y = posY
 }
 
 function changeLinesOnResize(ratio) {
@@ -115,4 +143,24 @@ function removeLine() {
 	gMeme.lines.splice(gMeme.selectedLineIdx, 1)
 
 	if (gMeme.selectedLineIdx === gMeme.lines.length) gMeme.selectedLineIdx = 0
+}
+
+function isMemeDrag() {
+	return gMeme.isDrag
+}
+
+function isInLine(pos, isClicked) {
+	for (let i = 0; i < gMeme.lines.length; i++) {
+		const box = gMeme.lines[i].bindBox
+		if (
+			pos.x >= box.x &&
+			pos.x <= box.x + box.width &&
+			pos.y >= box.y &&
+			pos.y <= box.y + box.height
+		) {
+			if (isClicked) gMeme.selectedLineIdx = i
+			return true
+		}
+	}
+	return false
 }

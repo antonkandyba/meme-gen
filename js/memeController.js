@@ -3,10 +3,13 @@
 var gCanvas
 var gCtx
 var gCurrWidth = 500
+var gDragStartPos
 
 function initEditor() {
 	gCanvas = document.querySelector('.meme-canvas')
 	gCtx = gCanvas.getContext('2d')
+
+	createDefaultLines()
 
 	// render meme only after loading the font for the first time
 	const f = new FontFace('impact', 'url(fonts/impact.ttf)')
@@ -17,9 +20,12 @@ function initEditor() {
 		renderAccordingToLine()
 	})
 
+	// resize canvas at start if the viewport is small
 	onResizeCanvas()
-	window.addEventListener('resize', onResizeCanvas)
+	addListeners()
 }
+
+// RENDERS
 
 function renderMeme() {
 	const meme = getMeme()
@@ -68,22 +74,24 @@ function renderLineSelection() {
 	gCtx.shadowBlur = 0
 	gCtx.strokeStyle = 'yellow'
 
-	const line = getLine()
-	const txtMeasure = gCtx.measureText(line.txt)
+	setBindBoxes()
+	const bindBox = getBindBox()
+	gCtx.strokeRect(bindBox.x, bindBox.y, bindBox.width, bindBox.height)
+}
 
-	// choose x-axis start based on text alignment
-	// add 10px on each side for padding
-	let xStart = line.pos.x - 10
-	if (line.align === 'center') xStart -= txtMeasure.width / 2
-	if (line.align === 'right') xStart -= txtMeasure.width
-
-	// calculate selection box size acording to the text
-	gCtx.strokeRect(
-		xStart,
-		line.pos.y - txtMeasure.fontBoundingBoxAscent,
-		txtMeasure.width + 20,
-		txtMeasure.fontBoundingBoxDescent + txtMeasure.fontBoundingBoxAscent
-	)
+function setCtx(mode = 'line') {
+	if (mode === 'line') {
+		gCtx.lineWidth = 6
+		gCtx.shadowOffsetX = 3
+		gCtx.shadowOffsetY = 3
+		gCtx.shadowBlur = 7
+	} else if (mode === 'bindBox') {
+		gCtx.lineWidth = 3
+		gCtx.shadowOffsetX = 0
+		gCtx.shadowOffsetY = 0
+		gCtx.shadowBlur = 0
+		gCtx.strokeStyle = 'yellow'
+	}
 }
 
 // render all info after line switch
@@ -103,6 +111,8 @@ function renderAccordingToLine() {
 	if (elActive) elActive.classList.remove('active')
 	document.querySelector(`.align-${line.align}-btn`).classList.add('active')
 }
+
+// INTERACTING WITH OPERATIONS
 
 function onLineInput(txt) {
 	setLineTxt(txt)
@@ -143,11 +153,24 @@ function onChangeTextSize(diff) {
 	renderMeme()
 }
 
-function onMoveLine(diff) {
-	moveLine(diff)
+function onMoveLine(diffY) {
+	moveLine(0, diffY)
 	renderMeme()
 }
 
+function onAddLine() {
+	addNewLine()
+	renderAccordingToLine()
+	renderMeme()
+}
+
+function onRemoveLine() {
+	removeLine()
+	renderAccordingToLine()
+	renderMeme()
+}
+
+// change canvas size based on window
 function onResizeCanvas() {
 	const width = document.body.offsetWidth
 	if (width < 520) {
@@ -171,14 +194,75 @@ function onResizeCanvas() {
 	}
 }
 
-function onAddLine() {
-	addNewLine()
+// DRAG & DROP
+function addListeners() {
+	window.addEventListener('resize', onResizeCanvas)
+	// mouse listeners
+	gCanvas.addEventListener('mousemove', onMove)
+	gCanvas.addEventListener('mousedown', onDown)
+	gCanvas.addEventListener('mouseup', onUp)
+	// touch listeners
+	gCanvas.addEventListener('touchmove', onMove)
+	gCanvas.addEventListener('touchstart', onDown)
+	gCanvas.addEventListener('touchend', onUp)
+}
+
+function onDown(ev) {
+	//Get the ev pos from mouse or touch
+	console.log(ev.changedTouches)
+	const pos = getEvPos(ev)
+	console.log(pos)
+	if (!isInLine(pos, true)) return
+	// in case we change the line with the click
 	renderAccordingToLine()
+	setIsMemeDrag(true)
+	gDragStartPos = pos
+	document.body.style.cursor = 'grabbing'
 	renderMeme()
 }
 
-function onRemoveLine() {
-	removeLine()
-	renderAccordingToLine()
-	renderMeme()
+function onUp(ev) {
+	const pos = getEvPos(ev)
+	setIsMemeDrag(false)
+	if (isInLine(pos, false)) document.body.style.cursor = 'grab'
+}
+
+function onMove(ev) {
+	const pos = getEvPos(ev)
+	if (isMemeDrag()) {
+		ev.preventDefault()
+		const pos = getEvPos(ev)
+
+		const dx = pos.x - gDragStartPos.x
+		const dy = pos.y - gDragStartPos.y
+		moveLine(dx, dy)
+		gDragStartPos = pos
+		renderMeme()
+	} else {
+		if (isInLine(pos, false)) document.body.style.cursor = 'grab'
+		else document.body.style.cursor = 'default'
+	}
+}
+
+function getEvPos(ev) {
+	const touchEvs = ['touchstart', 'touchmove', 'touchend']
+	//Gets the offset pos , the default pos
+	var pos = {
+		x: ev.offsetX,
+		y: ev.offsetY,
+	}
+
+	if (touchEvs.includes(ev.type)) {
+		ev.preventDefault()
+	}
+	if (touchEvs.includes(ev.type)) {
+		ev.preventDefault()
+		ev = ev.changedTouches[0]
+		//Calc the right pos according to the touch screen
+		pos = {
+			x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+			y: ev.pageY - ev.target.offsetTop - ev.target.clientTop - ev.target.offsetParent.offsetTop,
+		}
+	}
+	return pos
 }
