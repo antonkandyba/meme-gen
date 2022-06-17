@@ -17,11 +17,10 @@ function initEditor() {
 		createDefaultLines()
 		renderMeme()
 		renderAccordingToLine()
+		// resize canvas at start if the viewport is small
+		onResizeCanvas()
+		addListeners()
 	})
-
-	// resize canvas at start if the viewport is small
-	onResizeCanvas()
-	addListeners()
 }
 
 // RENDERS

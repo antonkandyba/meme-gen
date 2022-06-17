@@ -9,7 +9,6 @@ var gMeme = {
 }
 
 function createDefaultLines() {
-	console.log(gMeme.ratio)
 	gMeme.lines = [
 		{
 			pos: { x: 250, y: 50 },
@@ -64,6 +63,7 @@ function setMemeImg(imgId) {
 	img.onload = () => {
 		const ratio = img.height / img.width
 		setHeightRatio(ratio)
+		initEditor()
 	}
 }
 

@@ -15,7 +15,6 @@ function onClickGalleryImg(imgId) {
 }
 
 function renderMemeEditor() {
-	initEditor()
 	document.body.classList.add('editor-open')
 }
 
