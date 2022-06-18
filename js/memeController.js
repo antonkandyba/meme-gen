@@ -25,7 +25,7 @@ function initEditor() {
 
 // RENDERS
 
-function renderMeme() {
+function renderMeme(isForExport = false) {
 	const meme = getMeme()
 	const img = new Image()
 	img.src = `img/${meme.selectedImgId}.jpg`
@@ -51,7 +51,7 @@ function renderMeme() {
 		if (!line) return
 		gCtx.font = `${line.size}px impact`
 
-		renderLineSelection()
+		if (!isForExport) renderLineSelection()
 	}
 }
 
@@ -169,6 +169,13 @@ function onRemoveLine() {
 	removeLine()
 	renderAccordingToLine()
 	renderMeme()
+}
+
+function onDownloadImg(elLink) {
+	// renderMeme(true)
+	const imgContent = gCanvas.toDataURL('image/jpeg')
+	elLink.href = imgContent
+	// renderMeme(false)
 }
 
 // change canvas size based on window

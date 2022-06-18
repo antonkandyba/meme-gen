@@ -7,6 +7,9 @@ function onInit() {
 	}
 
 	document.querySelector('.gallery-grid').innerHTML = imgsHTML
+
+	const elHamburger = document.querySelector('.hamburger-btn')
+	elHamburger.innerText = '\uf0c9'
 }
 
 function onClickGalleryImg(imgId) {
@@ -20,4 +23,19 @@ function renderMemeEditor() {
 
 function onGoToGallery() {
 	document.body.classList.remove('editor-open')
+	document.body.classList.remove('menu-open')
+
+	changeHammburgerButton()
+}
+
+function onHamburger() {
+	document.body.classList.toggle('menu-open')
+
+	changeHammburgerButton()
+}
+
+function changeHammburgerButton() {
+	// switch between hamburger and X to close
+	const elHamburger = document.querySelector('.hamburger-btn')
+	elHamburger.innerText = elHamburger.innerText === '\uf0c9' ? '\uf00d' : '\uf0c9'
 }

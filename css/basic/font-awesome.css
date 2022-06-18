@@ -45,3 +45,7 @@
 .back-triangle::before {
 	content: '\f104';
 }
+
+.back-mobile-btn::before {
+	content: '\f177';
+}

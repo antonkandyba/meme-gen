@@ -17,6 +17,10 @@
 				<li class="header-gallery"><a href="#" onclick="onGoToGallery()">Gallery</a></li>
 				<li><a href="#">About</a></li>
 			</ul>
+			<ul class="mobile-nav clean-list flex">
+				<li class="back-mobile-btn font-awesome" onclick="onGoToGallery()"></li>
+				<li class="hamburger-btn font-awesome" onclick="onHamburger()"></li>
+			</ul>
 		</header>
 
 		<section class="search-bar"></section>
@@ -96,6 +100,10 @@
 						oninput="onLineInput(this.value)"
 					/>
 				</div>
+
+				<a href="#" class="download-btn" onclick="onDownloadImg(this)" download="my-meme.jpg"
+					>Download</a
+				>
 			</div>
 		</section>
 

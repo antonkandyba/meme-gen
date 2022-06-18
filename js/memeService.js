@@ -11,17 +11,17 @@ var gMeme = {
 function createDefaultLines() {
 	gMeme.lines = [
 		{
-			pos: { x: 250, y: 50 },
+			pos: { x: gCanvas.width / 2, y: 50 },
 			txt: 'TOP TEXT',
-			size: 48,
+			size: (48 * gCanvas.width) / 500,
 			align: 'center',
 			textColor: 'white',
 			strokeColor: 'black',
 		},
 		{
-			pos: { x: 250, y: 500 * gMeme.heightToWidthRatio - 12 },
+			pos: { x: gCanvas.width / 2, y: gCanvas.width * gMeme.heightToWidthRatio - 12 },
 			txt: 'BOTTOM TEXT',
-			size: 48,
+			size: (48 * gCanvas.width) / 500,
 			align: 'center',
 			textColor: 'white',
 			strokeColor: 'black',

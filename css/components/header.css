@@ -8,15 +8,3 @@
 	height: 2em;
 	width: 9.5em;
 }
-
-.main-header .nav-list li:not(:first-child) {
-	margin-inline-start: 3.125em;
-}
-
-.main-header .nav-list a {
-	color: var(--clr3);
-}
-
-.main-header .nav-list a:hover {
-	color: var(--clr1);
-}
