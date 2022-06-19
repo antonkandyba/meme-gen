@@ -80,21 +80,6 @@ function renderLineSelection() {
 	gCtx.strokeRect(bindBox.x, bindBox.y, bindBox.width, bindBox.height)
 }
 
-function setCtx(mode = 'line') {
-	if (mode === 'line') {
-		gCtx.lineWidth = 6
-		gCtx.shadowOffsetX = 3
-		gCtx.shadowOffsetY = 3
-		gCtx.shadowBlur = 7
-	} else if (mode === 'bindBox') {
-		gCtx.lineWidth = 3
-		gCtx.shadowOffsetX = 0
-		gCtx.shadowOffsetY = 0
-		gCtx.shadowBlur = 0
-		gCtx.strokeStyle = 'yellow'
-	}
-}
-
 // render all info after line switch
 function renderAccordingToLine() {
 	const line = getLine()
@@ -161,6 +146,12 @@ function onMoveLine(diffY) {
 
 function onAddLine() {
 	addNewLine()
+	renderAccordingToLine()
+	renderMeme()
+}
+
+function onAddSticker(sticker) {
+	addNewLine(sticker)
 	renderAccordingToLine()
 	renderMeme()
 }
@@ -259,9 +250,6 @@ function getEvPos(ev) {
 		y: ev.offsetY,
 	}
 
-	if (touchEvs.includes(ev.type)) {
-		ev.preventDefault()
-	}
 	if (touchEvs.includes(ev.type)) {
 		ev.preventDefault()
 		ev = ev.changedTouches[0]

@@ -36,6 +36,9 @@ body.editor-open .edit-main {
 
 .meme-operations {
 	position: relative;
+
+	display: flex;
+	flex-direction: column;
 }
 
 .meme-operations .lines-control-main {
@@ -71,6 +74,7 @@ body.editor-open .edit-main {
 	background-color: #fff;
 	border: 1px solid var(--clr5);
 	border-radius: 10px;
+	margin-bottom: 1.5em;
 }
 
 .meme-operations .line-operations .line-btns {
@@ -134,21 +138,39 @@ body.editor-open .edit-main {
 	padding-inline-start: 0.6em;
 }
 
-.edit-main .meme-operations .download-btn {
-	position: absolute;
-	bottom: 30px;
-	left: 50%;
-	transform: translateX(-50%);
+.meme-operations .stickers {
+	flex-wrap: wrap;
+	background-color: #fff;
+	padding: 0.6em;
+	margin-bottom: 1.5em;
+}
+.meme-operations .stickers div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-	font-size: 1.125em;
+	font-size: 1.6em;
+	width: 3.5em;
+}
+
+.meme-operations .stickers div:hover {
+	cursor: pointer;
+	text-shadow: 1px 1px 4px black;
+}
+
+.edit-main .meme-operations .download-btn {
+	text-align: center;
+
+	font-size: 1.1em;
 	font-family: roboto-medium;
 	text-transform: uppercase;
-	line-height: 3.375;
+	line-height: 3;
 	background-color: var(--clr1);
 	color: #fff;
 	border: none;
 	border-radius: 2em;
 	padding: 0 2em;
+	margin: 0 0.5em 1em 0.5em;
 }
 
 .edit-main .meme-operations .download-btn:hover {

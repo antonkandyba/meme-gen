@@ -9,24 +9,12 @@ var gMeme = {
 }
 
 function createDefaultLines() {
-	gMeme.lines = [
-		{
-			pos: { x: gCanvas.width / 2, y: 50 },
-			txt: 'TOP TEXT',
-			size: (48 * gCanvas.width) / 500,
-			align: 'center',
-			textColor: 'white',
-			strokeColor: 'black',
-		},
-		{
-			pos: { x: gCanvas.width / 2, y: gCanvas.width * gMeme.heightToWidthRatio - 12 },
-			txt: 'BOTTOM TEXT',
-			size: (48 * gCanvas.width) / 500,
-			align: 'center',
-			textColor: 'white',
-			strokeColor: 'black',
-		},
-	]
+	gMeme.lines = []
+	addNewLine('TOP TEXT')
+	addNewLine('BOTTOM TEXT')
+
+	gMeme.lines[0].pos = { x: gCanvas.width / 2, y: 50 }
+	gMeme.lines[1].pos = { x: gCanvas.width / 2, y: gCanvas.width * gMeme.heightToWidthRatio - 12 }
 }
 
 function getMeme() {
@@ -51,7 +39,7 @@ function setIsMemeDrag(isDrag) {
 
 function setLineTxt(txt) {
 	// change the currently selected line
-	gMeme.lines[gMeme.selectedLineIdx].txt = txt
+	getLine().txt = txt
 }
 
 function setMemeImg(imgId) {
@@ -73,11 +61,11 @@ function setHeightRatio(ratio) {
 
 function setBindBoxes() {
 	gMeme.lines.forEach((line) => {
-		setBindBox(line)
+		_setBindBox(line)
 	})
 }
 
-function setBindBox(line = gMeme.lines[gMeme.selectedLineIdx]) {
+function _setBindBox(line = getLine()) {
 	const txtMeasure = gCtx.measureText(line.txt)
 	// choose x-axis start based on text alignment
 	// add 10px on each side for padding
@@ -101,21 +89,21 @@ function switchLine() {
 }
 
 function setTextColor(color) {
-	gMeme.lines[gMeme.selectedLineIdx].textColor = color
+	getLine().textColor = color
 }
 
 function setStrokeColor(color) {
-	gMeme.lines[gMeme.selectedLineIdx].strokeColor = color
+	getLine().strokeColor = color
 }
 
 function setLineAlign(alignment) {
-	gMeme.lines[gMeme.selectedLineIdx].align = alignment
+	getLine().align = alignment
 }
 
 function changeTextSize(diff) {
 	// limit minimum size to 16
-	if (diff < 0 && gMeme.lines[gMeme.selectedLineIdx].size <= 16) return
-	gMeme.lines[gMeme.selectedLineIdx].size += diff
+	if (diff < 0 && getLine().size <= 16) return
+	getLine().size += diff
 }
 
 function moveLine(diffX = 0, diffY = 0) {
@@ -138,11 +126,11 @@ function changeLinesOnResize(ratio) {
 	})
 }
 
-function addNewLine() {
+function addNewLine(txt = 'New line') {
 	gMeme.lines.push({
 		pos: { x: gCanvas.width / 2, y: gCanvas.height / 2 },
-		txt: 'New Text',
-		size: 48,
+		txt,
+		size: (48 * gCanvas.width) / 500,
 		align: 'center',
 		textColor: 'white',
 		strokeColor: 'black',

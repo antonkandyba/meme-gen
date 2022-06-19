@@ -80,6 +80,7 @@
 
 .edit-main .canvas-area {
 	background-color: var(--clr2);
+	padding: 1em 0;
 }
 
 .lines-control-main {
@@ -87,9 +88,7 @@
 }
 
 .edit-main .meme-operations .download-btn {
-	position: absolute;
-	bottom: 10px;
-	text-align: center;
+	margin: 0 0.5em 1em 0.5em;
 }
 
 @media (min-width: 980px) {
@@ -129,6 +128,7 @@
 
 	.edit-main .canvas-area {
 		background-color: #fff;
+		padding: 0;
 	}
 
 	.edit-main .meme-operations {
@@ -137,8 +137,6 @@
 	}
 
 	.edit-main .meme-operations .download-btn {
-		bottom: 30px;
-		left: 50%;
-		transform: translateX(-50%);
+		margin: 0;
 	}
 }
