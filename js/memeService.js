@@ -33,6 +33,10 @@ function getBindBox() {
 	return getLine().bindBox
 }
 
+function setMeme(meme) {
+	gMeme = meme
+}
+
 function setIsMemeDrag(isDrag) {
 	gMeme.isDrag = isDrag
 }
@@ -136,7 +140,9 @@ function addNewLine(txt = 'New line') {
 		strokeColor: 'black',
 	})
 
-	gMeme.selectedLineIdx = gMeme.lines.length - 1
+	if (txt !== 'TOP TEXT' && txt !== 'BOTTOM TEXT') {
+		gMeme.selectedLineIdx = gMeme.lines.length - 1
+	}
 }
 
 function removeLine() {

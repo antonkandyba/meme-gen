@@ -4,23 +4,32 @@ var gCanvas
 var gCtx
 var gCurrWidth = 500
 var gDragStartPos
+var gIsFirstLoad = true
 
-function initEditor() {
+function initEditor(savedImage = false) {
 	gCanvas = document.querySelector('.meme-canvas')
 	gCtx = gCanvas.getContext('2d')
 
-	// render meme only after loading the font for the first time
-	const f = new FontFace('impact', 'url(fonts/impact.ttf)')
-	f.load().then((font) => {
-		document.fonts.add(font)
+	if (gIsFirstLoad) {
+		// render meme only after loading the font for the first time
+		const f = new FontFace('impact', 'url(fonts/impact.ttf)')
+		f.load().then((font) => {
+			document.fonts.add(f)
+			_loadStart(savedImage)
+		})
+		gIsFirstLoad = false
+	} else {
+		_loadStart()
+	}
+}
 
-		createDefaultLines()
-		renderMeme()
-		renderAccordingToLine()
-		// resize canvas at start if the viewport is small
-		onResizeCanvas()
-		addListeners()
-	})
+function _loadStart(savedImage) {
+	if (!savedImage) createDefaultLines()
+	renderMeme()
+	renderAccordingToLine()
+	// resize canvas at start if the viewport is small
+	onResizeCanvas()
+	addListeners()
 }
 
 // RENDERS
@@ -167,6 +176,11 @@ function onDownloadImg(elLink) {
 	const imgContent = gCanvas.toDataURL('image/jpeg')
 	elLink.href = imgContent
 	// renderMeme(false)
+}
+
+function onSaveMeme() {
+	saveMeme(getMeme())
+	onGoToGallery(true)
 }
 
 // change canvas size based on window

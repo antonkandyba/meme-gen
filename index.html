@@ -13,7 +13,7 @@
 		<header class="main-header flex align-center space-between">
 			<img src="img/logo.png" alt="Memegen logo" class="main-logo" />
 			<ul class="nav-list clean-list flex">
-				<li><a href="#">Memes</a></li>
+				<li><a href="#" onclick="onGoToGallery(true)">Memes</a></li>
 				<li class="header-gallery"><a href="#" onclick="onGoToGallery()">Gallery</a></li>
 				<li><a href="#">About</a></li>
 			</ul>
@@ -116,6 +116,7 @@
 					<div onclick="onAddSticker(this.innerText)">🍕</div>
 				</div>
 
+				<a href="#" class="save-btn" onclick="onSaveMeme()">Save</a>
 				<a href="#" class="download-btn" onclick="onDownloadImg(this)" download="my-meme.jpg"
 					>Download</a
 				>
@@ -126,5 +127,6 @@
 		<script src="js/galleryController.js"></script>
 		<script src="js/memeController.js"></script>
 		<script src="js/memeService.js"></script>
+		<script src="js/savedMemesController.js"></script>
 	</body>
 </html>

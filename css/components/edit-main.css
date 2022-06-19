@@ -158,7 +158,8 @@ body.editor-open .edit-main {
 	text-shadow: 1px 1px 4px black;
 }
 
-.edit-main .meme-operations .download-btn {
+.edit-main .meme-operations .download-btn,
+.edit-main .meme-operations .save-btn {
 	text-align: center;
 
 	font-size: 1.1em;
@@ -173,11 +174,13 @@ body.editor-open .edit-main {
 	margin: 0 0.5em 1em 0.5em;
 }
 
-.edit-main .meme-operations .download-btn:hover {
+.edit-main .meme-operations .download-btn:hover,
+.edit-main .meme-operations .save-btn:hover {
 	cursor: pointer;
 	box-shadow: 1px 1px 5px black;
 }
 
-.edit-main .meme-operations .download-btn:active {
+.edit-main .meme-operations .download-btn:active,
+.edit-main .meme-operations .save-btn:active {
 	box-shadow: 0 0 0 black;
 }
