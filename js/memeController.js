@@ -19,13 +19,14 @@ function initEditor(savedImage = false) {
 		})
 		gIsFirstLoad = false
 	} else {
-		_loadStart()
+		_loadStart(savedImage)
 	}
 }
 
 function _loadStart(savedImage) {
 	if (!savedImage) createDefaultLines()
 	renderMeme()
+	renderLineSelection()
 	renderAccordingToLine()
 	// resize canvas at start if the viewport is small
 	onResizeCanvas()
@@ -186,7 +187,7 @@ function onSaveMeme() {
 // change canvas size based on window
 function onResizeCanvas() {
 	const width = document.body.offsetWidth
-	if (width < 520) {
+	if (width < 500) {
 		// leave 10px margin on both sides
 		const newWidth = width - 20
 		gCanvas.width = newWidth
